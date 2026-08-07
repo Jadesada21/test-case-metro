@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  GENERAL_USER
+}
+
+model User {
+  id            Int            @id @default(autoincrement())
+  username      String         @db.VarChar(20)
+  email         String         @unique
+  password      String
+  role          Role           @default(GENERAL_USER)
+  isActive      Boolean        @default(false)
+  blogs         Blog[]
+  comments      Comment[]
+  notifications Notification[]
+  createdAt     DateTime       @default(now()) @db.Timestamptz(6)
+
+  @@map("users")
+}
+
+model Blog {
+  id            Int            @id @default(autoincrement())
+  title         String
+  content       String
+  authorId      Int
+  comments      Comment[]
+  notifications Notification[]
+  author        User           @relation(fields: [authorId], references: [id])
+  createdAt     DateTime       @default(now()) @db.Timestamptz(6)
+  updatedAt     DateTime       @updatedAt
+
+  @@map("blogs")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  blogId    Int
+  userId    Int
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+
+  blog Blog @relation(fields: [blogId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("comments")
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  blogId    Int
+  isRead    Boolean
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id])
+  blog Blog @relation(fields: [blogId], references: [id])
+
+  @@map("notifications")
+}
