@@ -4,10 +4,13 @@ import cors from '@fastify/cors'
 
 import prismaPlugin from './plugins/prisma.plugin'
 import authPlugin from './plugins/auth.plugin'
+import { ErrorHandler } from './util/setErrorHandler'
 
 
 function buildApp(opts: FastifyServerOptions = {}) {
     const app = fastify({ logger: true, ...opts })
+
+    ErrorHandler(app)
 
     app.register(cors, {
         origin: process.env.FRONTEND_URL || 'http://localhost:5173',

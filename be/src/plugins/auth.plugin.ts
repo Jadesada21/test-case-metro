@@ -7,17 +7,17 @@ async function authPlugin(fastify: FastifyInstance) {
         secret: process.env.JWT_SECRET || 'change-this-secret',
     })
 
-    fastify.decorate('authenticate', async function (request: FastifyRequest, reply: FastifyReply) {
+    fastify.decorate('authenticate', async function (req: FastifyRequest, res: FastifyReply) {
         try {
-            await request.jwtVerify()
+            await req.jwtVerify()
         } catch (err) {
-            reply.code(401).send({ message: 'Unauthorized: token Invalid or Expire' })
+            res.code(401).send({ message: 'Unauthorized: token Invalid or Expire' })
         }
     })
 
-    fastify.decorate('requireSuperAdmin', async function (request: FastifyRequest, reply: FastifyReply) {
-        if (request.user?.role !== "SUPER_ADMIN") {
-            reply.code(403).send({ message: "Forbidden : This's for Super Admin Role only" })
+    fastify.decorate('requireSuperAdmin', async function (req: FastifyRequest, res: FastifyReply) {
+        if (req.user?.role !== "SUPER_ADMIN") {
+            res.code(403).send({ message: "Forbidden : This's for Super Admin Role only" })
         }
     })
 }
