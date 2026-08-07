@@ -41,7 +41,6 @@ export async function registerUserService(input: RegisterInput) {
             password: hashedPassword
         }
     })
-
     const { password: _pw, ...safeUser } = user
 
     return safeUser
