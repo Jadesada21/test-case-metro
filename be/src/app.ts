@@ -1,0 +1,25 @@
+import fastify, { FastifyServerOptions } from 'fastify'
+import sensible from '@fastify/sensible'
+import cors from '@fastify/cors'
+
+import prismaPlugin from './plugins/prisma.plugin'
+import authPlugin from './plugins/auth.plugin'
+
+
+function buildApp(opts: FastifyServerOptions = {}) {
+    const app = fastify({ logger: true, ...opts })
+
+    app.register(cors, {
+        origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+        credentials: true
+    })
+    app.register(sensible)
+    app.register(prismaPlugin)
+    app.register(authPlugin)
+
+    app.get('health', async () => ({ status: 'OK' }))
+
+    return app
+}
+
+export default buildApp
