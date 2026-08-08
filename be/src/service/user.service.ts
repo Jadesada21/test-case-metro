@@ -4,13 +4,14 @@ import { UpdateUserInput } from "../types/user.type";
 import { toSafeUser } from "../util/safeUser";
 
 
-const findUser = async (prisma: PrismaClient, id: number) => {
+async function findUser(prisma: PrismaClient, id: number) {
     const user = await prisma.user.findUnique({
         where: { id }
     })
     if (!user) {
-        throw new AppError('User not found', 400)
+        throw new AppError('User not found', 404)
     }
+    return user
 }
 
 export async function listUsersService(prisma: PrismaClient) {

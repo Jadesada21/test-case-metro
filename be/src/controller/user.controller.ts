@@ -1,11 +1,9 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { activeUserService, deleteUserService, listUsersService, updateUserService } from "../service/user.service";
 import { UpdateUserInput } from "../types/user.type";
+import { IdParam } from "../types/idParam.type";
 
 
-interface IdParam {
-    id: string
-}
 
 export async function listUsersController(req: FastifyRequest,
     res: FastifyReply) {
