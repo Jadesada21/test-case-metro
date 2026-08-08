@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { AppError } from "./AppError";
+import { AppError } from "./appError";
 
 
 export function ErrorHandler(app: FastifyInstance) {

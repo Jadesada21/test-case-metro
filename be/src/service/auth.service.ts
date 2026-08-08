@@ -3,7 +3,7 @@ import { LoginInput, RegisterInput } from "../types/auth.types"
 import { isEmail } from "validator"
 import bcrypt from 'bcrypt'
 import { FastifyInstance } from "fastify"
-import { AppError } from "../util/AppError"
+import { AppError } from "../util/appError"
 import { prisma } from "../prisma/prisma"
 
 
