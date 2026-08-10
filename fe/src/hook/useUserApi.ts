@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiClient, toApiError } from "../lib/apiClient";
-import type { UpdateUserInput, UserListResponse, UserUpdateResponse } from "./useUser.type";
+import type { UpdateUserInput, UserListResponse, UserUpdateResponse } from "./types/useUser.type";
 
 
 

@@ -1,4 +1,4 @@
-import type { User } from "../lib/types/user.type";
+import type { User } from "../../lib/types/user.type";
 
 export interface UserListResponse {
     users: User[]
