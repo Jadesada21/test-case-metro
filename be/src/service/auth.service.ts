@@ -6,6 +6,9 @@ import { FastifyInstance } from "fastify"
 import { AppError } from "../util/appError"
 import { prisma } from "../prisma/prisma"
 
+function normalizeEmail(email: string) {
+    return email.trim().toLowerCase()
+}
 
 export function validateRegisterInput(input: RegisterInput) {
     const { username, email, password } = input
@@ -26,8 +29,9 @@ export async function registerUserService(input: RegisterInput) {
     validateRegisterInput(input)
 
     const { username, email, password } = input
+    const formatEmail = normalizeEmail(email)
 
-    const existing = await prisma.user.findUnique({ where: { email } })
+    const existing = await prisma.user.findUnique({ where: { email: formatEmail } })
     if (existing) {
         throw new AppError('Email already used', 409)
     }
@@ -37,7 +41,7 @@ export async function registerUserService(input: RegisterInput) {
     const user = await prisma.user.create({
         data: {
             username,
-            email,
+            email: formatEmail,
             password: hashedPassword
         }
     })
@@ -52,8 +56,9 @@ export async function loginUserService(
 ) {
     const { prisma } = fastify
     const { email, password } = input
+    const formatEmail = normalizeEmail(email)
 
-    const user = await prisma.user.findUnique({ where: { email } })
+    const user = await prisma.user.findUnique({ where: { email: formatEmail } })
     if (!user) {
         throw new AppError('Email or password invalid', 401)
     }
