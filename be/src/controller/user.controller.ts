@@ -19,7 +19,7 @@ export async function activeUserContoller(req: FastifyRequest<{ Params: IdParam 
 }
 
 export async function updateUserController(req: FastifyRequest<{ Params: IdParam, Body: UpdateUserInput }>, res: FastifyReply) {
-    const user = await updateUserService(req.server.prisma, Number(req.params.id), req.body)
+    const user = await updateUserService(req.server.prisma, Number(req.params.id), req.body, req.user)
 
     return res.code(200).send({ message: 'Update data user successfully', user })
 }

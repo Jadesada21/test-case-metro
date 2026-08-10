@@ -77,3 +77,9 @@ export async function loginUserService(
     const { password: _pw, ...safeUser } = user
     return { token, user: safeUser }
 }
+
+export async function logoutUserService() {
+    return {
+        message: "Logout successful"
+    }
+}

@@ -8,6 +8,4 @@ export class UpdateUserInput {
     @IsString()
     @IsOptional()
     password?: string
-
-
 }

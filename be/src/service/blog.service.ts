@@ -35,9 +35,10 @@ export async function createBlogService(
     authorId: number,
     input: CreateBlogInput
 ) {
-    const { title, content } = input
+    const title = input.title.trim()
+    const content = input.content.trim()
 
-    if (!title || content) {
+    if (!title || !content) {
         throw new AppError('Please insert title and content', 400)
     }
 

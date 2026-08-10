@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { findBlog } from "../util/findBlog";
 import { CreateCommentInput } from "../types/comment.type";
 import { AppError } from "../util/appError";
+import { createNotificationService } from "./notification.service";
 
 
 const userSelect = {
@@ -31,10 +32,26 @@ export async function createCommentService(
         throw new AppError('Plase insert content', 400)
     }
 
-    await findBlog(prisma, blogId)
+    const blog = await findBlog(prisma, blogId)
 
-    return prisma.comment.create({
-        data: { content, blogId, userId },
-        include: { user: { select: userSelect } },
+    const comment = await prisma.comment.create({
+        data: {
+            content,
+            blogId,
+            userId
+        },
+        include: {
+            user: {
+                select: userSelect
+            }
+        }
     })
+
+    await createNotificationService(prisma,
+        blog.authorId,
+        blogId,
+        userId)
+
+
+    return comment
 }

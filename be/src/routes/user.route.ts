@@ -22,7 +22,7 @@ async function userRoutes(fastify: FastifyInstance) {
 
     fastify.put<{ Params: IdParam, Body: UpdateUserInput }>(
         '/:id',
-        { preHandler: [authenticate, requireSuperAdmin] },
+        { preHandler: [authenticate] },
         updateUserController
     )
 

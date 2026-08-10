@@ -32,11 +32,20 @@ export async function activeUserService(prisma: PrismaClient, id: number) {
 }
 
 
-export async function updateUserService(prisma: PrismaClient, id: number, input: UpdateUserInput) {
+export async function updateUserService(
+    prisma: PrismaClient,
+    id: number,
+    input: UpdateUserInput,
+    currentUser: { id: number, role: string }
+) {
     findUser
 
     if (input.username && (input.username.length < 4 || input.username.length > 20)) {
         throw new AppError('Username must length between 4-20 character')
+    }
+
+    if (currentUser.id !== id && currentUser.role !== 'SUPER_ADMIN') {
+        throw new AppError('You can only update your own account', 403)
     }
 
     const updated = await prisma.user.update({
