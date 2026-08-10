@@ -7,7 +7,7 @@ export function useLogin() {
     return useMutation({
         mutationFn: async (input: LoginInput) => {
             try {
-                const { data } = await apiClient.post<LoginResponse>('/login', input)
+                const { data } = await apiClient.post<LoginResponse>('/auth/login', input)
                 return data
             } catch (err) {
                 throw toApiError(err)
@@ -20,7 +20,7 @@ export function useRegister() {
     return useMutation({
         mutationFn: async (input: RegisterInput) => {
             try {
-                const { data } = await apiClient.post<RegisterResponse>('/register', input)
+                const { data } = await apiClient.post<RegisterResponse>('/aut/register', input)
                 return data
             } catch (err) {
                 throw toApiError(err)

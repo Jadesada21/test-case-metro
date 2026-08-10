@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { FastifyInstance } from "fastify";
-import fs from 'fastify-plugin'
+import fp from 'fastify-plugin'
 
 
 async function prismaPlugin(fastify: FastifyInstance) {
@@ -15,4 +15,4 @@ async function prismaPlugin(fastify: FastifyInstance) {
     })
 }
 
-export default prismaPlugin
+export default fp(prismaPlugin)
