@@ -81,6 +81,6 @@ export async function deleteBlogService(
         throw new AppError('Forbidden ', 403)
     }
 
-    await prisma.blog.delete({ Where: { id } })
+    await prisma.blog.delete({ where: { id } })
     return { message: "Delete blog successfully" }
 }

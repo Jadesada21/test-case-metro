@@ -24,10 +24,11 @@ export async function listUsersService(prisma: PrismaClient) {
 export async function activeUserService(prisma: PrismaClient, id: number) {
     findUser
 
-    const updated = await prisma.update({
+    const updated = await prisma.user.update({
         where: { id },
         data: { isActive: true }
     })
+    return updated
 }
 
 
@@ -38,7 +39,7 @@ export async function updateUserService(prisma: PrismaClient, id: number, input:
         throw new AppError('Username must length between 4-20 character')
     }
 
-    const updated = await prisma.update({
+    const updated = await prisma.user.update({
         where: { id },
         data: input
     })

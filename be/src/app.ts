@@ -28,9 +28,9 @@ function buildApp(opts: FastifyServerOptions = {}) {
     app.register(userRoutes, { prefix: '/users' })
     app.register(blogRoute, { prefix: '/blogs' })
     app.register(commentRoutes, { prefix: '/blogs' })
-    app.register(notificationRoutes, { prefix: 'notifications' })
+    app.register(notificationRoutes, { prefix: '/notifications' })
 
-    app.get('health', async () => ({ status: 'OK' }))
+    app.get('/health', async () => ({ status: 'OK' }))
 
     return app
 }
