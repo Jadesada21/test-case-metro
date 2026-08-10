@@ -14,7 +14,7 @@ export async function listBlogsService(
             ? {
                 OR: [
                     { title: { contains: search, mode: 'insensitive' as const } },
-                    { content: { contains: search, mode: 'insensitive ' as const } },
+                    { content: { contains: search, mode: 'insensitive' as const } },
                 ],
             }
             : undefined,

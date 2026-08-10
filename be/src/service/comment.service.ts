@@ -12,7 +12,7 @@ const userSelect = {
 export async function listCommentsByBlogIdService(prisma: PrismaClient, blogId: number) {
     await findBlog(prisma, blogId)
 
-    return prisma.comment.findUnique({
+    return prisma.comment.findMany({
         where: { blogId },
         include: { user: { select: userSelect } },
         orderBy: { createdAt: 'desc' }
