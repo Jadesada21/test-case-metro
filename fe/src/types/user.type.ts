@@ -1,10 +1,10 @@
 export type Role = 'SUPER_ADMIN' | 'GENERAL_USER'
 
 export interface User {
-    id: Number
-    username: String
-    email: String
+    id: number
+    username: string
+    email: string
     role: Role
-    isActive: Boolean
-    createdAt: String
+    isActive: boolean
+    createdAt: string
 }
