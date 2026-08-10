@@ -1,6 +1,6 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { AppError } from "../util/appError";
-import { loginUserService, logoutUserService, registerUserService } from "../service/auth.service";
+import { getMeService, loginUserService, logoutUserService, registerUserService } from "../service/auth.service";
 import { LoginInput, RegisterInput } from "../types/auth.types";
 
 
@@ -46,4 +46,12 @@ export async function logoutUserController(req: FastifyRequest, res: FastifyRepl
         req.log.error(err)
         return res.code(500).send({ message: "Something wrong try again" })
     }
+}
+
+export async function getMeController(req: FastifyRequest,
+    res: FastifyReply) {
+    const user = await getMeService(
+        req.user.id
+    )
+    return res.code(200).send(user)
 }

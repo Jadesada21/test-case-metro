@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt'
 import { FastifyInstance } from "fastify"
 import { AppError } from "../util/appError"
 import { prisma } from "../prisma/prisma"
+import { toSafeUser } from "../util/safeUser"
 
 function normalizeEmail(email: string) {
     return email.trim().toLowerCase()
@@ -45,9 +46,9 @@ export async function registerUserService(input: RegisterInput) {
             password: hashedPassword
         }
     })
-    const { password: _pw, ...safeUser } = user
+    const { password: _pw, ...toSafeUser } = user
 
-    return safeUser
+    return toSafeUser
 }
 
 export async function loginUserService(
@@ -72,14 +73,43 @@ export async function loginUserService(
         throw new AppError('Account access denied waiting approve from Super Admin', 403)
     }
 
-    const token = fastify.jwt.sign({ id: user.id, role: user.role })
+    const token = fastify.jwt.sign(
+        {
+            id: user.id,
+            role: user.role
+        },
+        {
+            expiresIn: '1h'
+        }
+    )
 
-    const { password: _pw, ...safeUser } = user
-    return { token, user: safeUser }
+    const { password: _pw, ...toSafeUser } = user
+    return { token, user: toSafeUser }
 }
 
 export async function logoutUserService() {
     return {
         message: "Logout successful"
     }
+}
+
+export async function getMeService(
+    userId: number
+) {
+    const user = await prisma.user.findUnique({
+        where: { id: userId }
+    })
+
+    if (!user) {
+        throw new AppError('User not found', 404)
+    }
+
+    if (!user.isActive) {
+        throw new AppError('Account access denied', 403)
+    }
+
+    const { password: _pw, ...toSafeUser } = user
+
+    return toSafeUser
+
 }

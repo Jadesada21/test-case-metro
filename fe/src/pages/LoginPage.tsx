@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import { ApiError } from "../lib/apiClient";
-import { Eye } from "lucide-react";
+import { PasswordToggle } from "../components/ShowPassword";
 
 type Errors = {
     email: string | null
@@ -80,11 +80,7 @@ export default function LoginPage() {
     }
 
     const toggleShowPassword = () => {
-        if (showPassword === true) {
-            setShowPassword(false)
-        } else {
-            setShowPassword(true)
-        }
+        setShowPassword(prev => !prev)
     }
 
 
@@ -126,14 +122,17 @@ export default function LoginPage() {
                         className="w-full border rounded px-3 py-2"
                     />
 
-                    <button
-                        className="absolute pt-3 right-3 top-1/2 -translate-y-1/2 cursor-pointer active:scale-95 transition-transform"
-                        type="button"
-                        onClick={toggleShowPassword}
-                    >
-                        <Eye size={18} />
-                    </button>
+                    <PasswordToggle
+                        showPassword={showPassword}
+                        onToggle={toggleShowPassword}
+                    />
                 </div>
+
+                {error.password && (
+                    <p className="text-red-500">
+                        {error.password}
+                    </p>
+                )}
 
                 {error.general && (
                     <p className="text-red-500">

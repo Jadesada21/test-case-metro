@@ -53,7 +53,7 @@ export async function markAsReadService(
     })
 
     if (!notification) {
-        return new AppError('Notification not found', 400)
+        return new AppError('Notification not found', 404)
     }
 
     if (notification.userId !== userId) {

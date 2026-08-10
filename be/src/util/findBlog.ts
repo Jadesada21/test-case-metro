@@ -20,7 +20,7 @@ export async function findBlog(
         })
 
     if (!blog) {
-        throw new AppError('Blog not found', 400)
+        throw new AppError('Blog not found', 404)
     }
     return blog
 }

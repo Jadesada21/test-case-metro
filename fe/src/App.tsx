@@ -1,6 +1,9 @@
 import { Route, Routes } from "react-router-dom"
 import { AuthProvider } from "./context/AuthContext"
 import LoginPage from "./pages/LoginPage"
+import BlogListPage from "./pages/BlogListPage"
+import ProtectedRoute from "./context/ProtectedRoute"
+import RegisterPage from "./pages/RegisterPage"
 
 
 function App() {
@@ -9,12 +12,16 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-        {/* <Route path="/" element={ }></> */}
-        <Route path="/login" element={<LoginPage />} />
-        {/* <Route path="/register" element={ }></> */}
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
 
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="blogs" element={<BlogListPage />} />
+
+        </Route>
       </Routes>
-    </AuthProvider>
+    </AuthProvider >
   )
 }
 
