@@ -5,4 +5,4 @@ export class AppError extends Error {
         this.name = "AuthError"
         this.statusCode = statusCode
     }
-}
+}   

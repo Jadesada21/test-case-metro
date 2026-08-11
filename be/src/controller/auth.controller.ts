@@ -1,4 +1,4 @@
-import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { FastifyReply, FastifyRequest } from "fastify";
 import { AppError } from "../util/appError";
 import { getMeService, loginUserService, logoutUserService, registerUserService } from "../service/auth.service";
 import { LoginInput, RegisterInput } from "../types/auth.types";
