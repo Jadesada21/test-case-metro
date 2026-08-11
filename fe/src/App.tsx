@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage"
 import BlogListPage from "./pages/BlogListPage"
 import ProtectedRoute from "./context/ProtectedRoute"
 import RegisterPage from "./pages/RegisterPage"
+import Layout from "./components/Layout"
 
 
 function App() {
@@ -17,9 +18,16 @@ function App() {
 
 
         <Route element={<ProtectedRoute />}>
-          <Route path="blogs" element={<BlogListPage />} />
+          <Route element={<Layout />} >
 
+            <Route path="blogs" element={<BlogListPage />} />
+          </Route>
+
+
+          <Route element={<ProtectedRoute role="SUPER_ADMIN" />}>
+          </Route>
         </Route>
+
       </Routes>
     </AuthProvider >
   )

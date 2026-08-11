@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import type { AuthContextValue } from "../types/authContext.type";
+import type { AuthContextValue } from "../types/auth-context.type";
 import type { User } from "../lib/types/user.type";
 import { useLogin, useRegister } from "../hook/useAuthApi";
 

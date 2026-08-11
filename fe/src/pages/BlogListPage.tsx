@@ -24,7 +24,7 @@ export default function BlogListPage() {
         <div className="max-w-6xl mx-auto px-6">
             <div className="flex items-end justify-between gap-4 flex-wrap py-10">
                 <h1 className="font-display italic text-4xl font-medium m-0">บทความทั้งหมด</h1>
-                <div className="flex items-center gap-2 border-b-[1.5px] border-stone-300 px-1 py-1.5 min-w-[220px]">
+                <div className="flex items-center gap-2 border-b-[1.5px] border-stone-300 px-1 py-1.5 min-w-55">
                     <span className="text-pencil">⌕</span>
                     <input
                         placeholder="ค้นหาบทความ..."
