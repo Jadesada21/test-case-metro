@@ -12,7 +12,6 @@ export default function AdminUsersPage() {
 
     const [editingId, setEditingId] = useState<number | null>(null);
     const [editUsername, setEditUsername] = useState('');
-    const [editPassword, setEditPassword] = useState('')
 
     async function handleActivate(id: number) {
         try {
