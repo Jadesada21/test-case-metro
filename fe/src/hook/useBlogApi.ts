@@ -38,6 +38,7 @@ export function useCreateBlog() {
         mutationFn: async (input: BlogInput) => {
             try {
                 const { data } = await apiClient.post<BlogDetailResponse>('/blogs', input)
+                return data.blog
             } catch (err) {
                 throw toApiError(err)
             }

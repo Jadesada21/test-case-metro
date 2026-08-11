@@ -15,8 +15,8 @@ export async function listBlogsController(
 export async function getBlogByIdController(
     req: FastifyRequest<{ Params: IdParam }>, res: FastifyReply
 ) {
-    const blogs = await getBlogByIdService(req.server.prisma, Number(req.params.id))
-    return res.code(200).send({ blogs })
+    const blog = await getBlogByIdService(req.server.prisma, Number(req.params.id))
+    return res.code(200).send({ blog })
 }
 
 export async function createBlogController(

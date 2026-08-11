@@ -23,7 +23,6 @@ export default function RegisterPage() {
         password: null,
         general: null
     });
-    const [success, setSuccess] = useState('');
     const [submitting, setSubmitting] = useState(false);
     const [showPassword, setShowPassword] = useState(false)
 
@@ -35,7 +34,6 @@ export default function RegisterPage() {
             password: null,
             general: null
         })
-        setSuccess('')
         setSubmitting(true)
         try {
             let hasError = false
@@ -53,6 +51,11 @@ export default function RegisterPage() {
                     ...prev,
                     email: "Please enter your email"
                 }))
+                hasError = true
+            }
+
+            if (!email.includes('@')) {
+                setError((prev) => ({ ...prev, email: "กรุณากรอกอีเมลให้ถูกต้อง" }))
                 hasError = true
             }
 
@@ -76,10 +79,8 @@ export default function RegisterPage() {
                 return
             }
 
-            const message = await register(username, email, password)
-
-            setSuccess(message)
-            setTimeout(() => navigate('login'), 1800)
+            await register(username, email, password)
+            setTimeout(() => navigate('/'), 1800)
         } catch (err) {
             if (err instanceof ApiError) {
                 setError((prev) => ({ ...prev, general: err.message }))
@@ -179,7 +180,7 @@ export default function RegisterPage() {
                         disabled={submitting}
                         className="w-full bg-black text-white rounded py-2 active:scale-95 active:bg-black/70 disabled:opacity-50 cursor-pointer transition-transform"
                     >
-                        {submitting ? 'Logging in...' : 'login'}
+                        {submitting ? 'กำลังสมัคร...' : 'สมัครสมาชิก'}
                     </button>
                 </div>
             </form>
@@ -188,6 +189,5 @@ export default function RegisterPage() {
                 มีบัญชีอยู่แล้ว? <Link to="/">เข้าสู่ระบบ</Link>
             </div>
         </div>
-
     )
 }

@@ -5,6 +5,9 @@ import BlogListPage from "./pages/BlogListPage"
 import ProtectedRoute from "./context/ProtectedRoute"
 import RegisterPage from "./pages/RegisterPage"
 import Layout from "./components/Layout"
+import BlogDetailPage from "./pages/BlogDetailPage"
+import BlogFormPage from "./pages/BlogFormPage"
+import AdminUsersPage from "./pages/AdminPage"
 
 
 function App() {
@@ -21,11 +24,16 @@ function App() {
           <Route element={<Layout />} >
 
             <Route path="blogs" element={<BlogListPage />} />
-          </Route>
+            <Route path="blogs/new" element={<BlogFormPage />} />
+            <Route path="blogs/:id" element={<BlogDetailPage />} />
+            <Route path="blogs/:id/edit" element={<BlogFormPage />} />
 
 
-          <Route element={<ProtectedRoute role="SUPER_ADMIN" />}>
+            <Route element={<ProtectedRoute role="SUPER_ADMIN" />}>
+              <Route path="/admin" element={<AdminUsersPage />} />
+            </Route>
           </Route>
+
         </Route>
 
       </Routes>

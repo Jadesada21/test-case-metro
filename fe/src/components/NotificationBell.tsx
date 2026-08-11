@@ -37,7 +37,7 @@ export default function NotificationBell() {
             <button
                 onClick={() => setOpen((o) => !o)}
                 aria-label="การแจ้งเตือน"
-                className="relative text-lg text-pencil hover:text-ink transition-colors p-1.5"
+                className="relative text-lg  cursor-pointer transition-colors p-1.5"
             >
                 🔔
                 {unreadCount > 0 && (
@@ -47,12 +47,12 @@ export default function NotificationBell() {
                 )}
             </button>
             {open && (
-                <div className="absolute right-0 top-9 w-80 bg-paper border border-ink shadow-[4px_4px_0_theme(colors.paperline)] z-20 max-h-96 overflow-y-auto">
+                <div className="absolute left-5 top-14 w-80 bg-paper border shadow-[4px_4px_0_theme(colors.paperline)] z-20 max-h-96 overflow-y-auto">
                     <div className="px-4 py-3 border-b border-paperline font-display italic text-[15px]">
                         การแจ้งเตือน
                     </div>
                     {notifications.length === 0 ? (
-                        <div className="px-4 py-6 text-center text-pencil text-sm">ยังไม่มีการแจ้งเตือน</div>
+                        <div className="px-4 py-6 text-center  text-sm">ยังไม่มีการแจ้งเตือน</div>
                     ) : (
                         notifications.map((n) => (
                             <div
@@ -67,7 +67,7 @@ export default function NotificationBell() {
                                 />
                                 <div>
                                     <div>มีความคิดเห็นใหม่ในบทความ "{n.blog.title}"</div>
-                                    <div className="font-mono text-xs text-pencil mt-0.5">
+                                    <div className="font-mono text-xs  mt-0.5">
                                         {new Date(n.createdAt).toLocaleString('th-TH')}
                                     </div>
                                 </div>

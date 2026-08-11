@@ -22,10 +22,9 @@ export default function BlogListPage() {
 
     return (
         <div className="max-w-6xl mx-auto px-6">
-            <div className="flex items-end justify-between gap-4 flex-wrap py-10">
-                <h1 className="font-display italic text-4xl font-medium m-0">บทความทั้งหมด</h1>
+            <div className="flex items-end gap-60 flex-wrap py-10">
                 <div className="flex items-center gap-2 border-b-[1.5px] border-stone-300 px-1 py-1.5 min-w-55">
-                    <span className="text-pencil">⌕</span>
+                    <span >⌕</span>
                     <input
                         placeholder="ค้นหาบทความ..."
                         value={search}
@@ -33,12 +32,15 @@ export default function BlogListPage() {
                         className="bg-transparent outline-none text-sm w-full"
                     />
                 </div>
+
+                <h1 className="font-display italic text-4xl font-medium m-0">บทความทั้งหมด</h1>
+
             </div>
 
             {isLoading ? (
-                <div className="text-pencil text-sm text-center py-16">กำลังโหลด...</div>
+                <div className=" text-sm text-center py-16">กำลังโหลด...</div>
             ) : blogs.length === 0 ? (
-                <div className="text-center py-20 text-pencil">
+                <div className="text-center py-20 ">
                     <div className="font-display italic text-5xl text-paperline mb-2">¶</div>
                     {debouncedSearch ? 'ไม่พบบทความที่ค้นหา' : 'ยังไม่มีบทความ เริ่มเขียนเรื่องแรกของคุณเลย'}
                 </div>
@@ -48,7 +50,7 @@ export default function BlogListPage() {
                         <Link
                             to={`/blogs/${blog.id}`}
                             key={blog.id}
-                            className="group flex flex-col justify-between bg-white/60 border border-paperline rounded-sm p-5 hover:border-ink hover:shadow-[3px_3px_0_var(--paper-line)] transition-all"
+                            className="group flex flex-col justify-between bg-white/60 border border-paperline rounded-sm p-5  hover:shadow-[3px_3px_0_var(--paper-line)] transition-all"
                         >
                             <div>
                                 <h2 className="font-display text-xl font-semibold leading-snug mb-2 group-hover:text-stamp transition-colors">
@@ -56,7 +58,7 @@ export default function BlogListPage() {
                                 </h2>
                                 <p className="text-sm text-neutral-600 leading-relaxed">{excerpt(blog.content)}</p>
                             </div>
-                            <div className="font-mono text-xs text-pencil mt-4 pt-3 border-t border-paperline flex justify-between">
+                            <div className="font-mono text-xs  mt-4 pt-3 border-t border-paperline flex justify-between">
                                 <span>{blog.author.username}</span>
                                 <span>{new Date(blog.createdAt).toLocaleDateString('th-TH')}</span>
                             </div>
